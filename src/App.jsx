@@ -55,28 +55,28 @@ const ACTIVITY_TYPES = [
 
 const COLOR_PALETTE = {
   distal: {
-    skinT: '#ef4444',
-    ambT: '#f97316',
-    accX: '#84cc16',
-    accY: '#22c55e',
-    accZ: '#10b981',
+    skinT: '#F1EB9C',     // Skin temperature: Yellow
+    ambT: '#64CCC9',      // Ambient temp: Thermal blue
+    accX: '#3B63C1',      // Acc X: Blue
+    accY: '#6A82B9',      // Acc Y: Blue lighter
+    accZ: '#9DA5B3',      // Acc Z: Blue lightest
     gyroX: '#14b8a6',
     gyroY: '#06b6d4',
     gyroZ: '#0ea5e9',
-    hf: '#8b5cf6'
+    hf: '#FF8D6D'         // Heat flux: Orange
   },
   proximal: {
-    skinT: '#dc2626',
-    ambT: '#ea580c',
-    accX: '#65a30d',
-    accY: '#16a34a',
-    accZ: '#059669',
+    skinT: '#F1EB9C',     // Skin temperature: Yellow
+    ambT: '#64CCC9',      // Ambient temp: Thermal blue
+    accX: '#3B63C1',      // Acc X: Blue
+    accY: '#6A82B9',      // Acc Y: Blue lighter
+    accZ: '#9DA5B3',      // Acc Z: Blue lightest
     gyroX: '#0d9488',
     gyroY: '#0891b2',
     gyroZ: '#0284c7',
-    hf: '#7c3aed'
+    hf: '#FF8D6D'         // Heat flux: Orange
   },
-  dpg: '#ec4899',
+  dpg: '#9B8BB5',         // DPG: Purple
   events: ['#fbbf24', '#a78bfa', '#fb7185', '#34d399', '#60a5fa', '#f472b6']
 }
 
@@ -810,10 +810,10 @@ export default function App() {
     if (!active || !payload || payload.length === 0) return null
     
     return (
-      <div className="bg-white border border-gray-300 p-3 rounded shadow-lg">
-        <p className="font-semibold text-sm mb-2">{payload[0]?.payload?.timeLabel}</p>
+      <div className="bg-gray-900 border-2 border-orange-500/50 p-3 rounded-lg shadow-2xl backdrop-blur-sm">
+        <p className="font-bold text-sm mb-2 text-orange-400">{payload[0]?.payload?.timeLabel}</p>
         {payload.map((entry, idx) => (
-          <p key={idx} className="text-xs" style={{ color: entry.color }}>
+          <p key={idx} className="text-xs font-semibold text-gray-100" style={{ color: entry.color }}>
             {entry.name}: {entry.value?.toFixed(2) ?? 'N/A'}
           </p>
         ))}
@@ -1109,7 +1109,7 @@ export default function App() {
             {/* Base Date */}
             <div>
               <label className="block text-sm font-semibold text-gray-200 mb-2">
-                <Calendar className="inline w-4 h-4 mr-1 text-orange-400" />
+                <Calendar className="inline w-4 h-4 mr-1 text-orange-400 stroke-2" />
                 Base Date
               </label>
               <input
@@ -1117,7 +1117,7 @@ export default function App() {
                 value={baseDate}
                 onChange={(e) => setBaseDate(e.target.value)}
                 placeholder="Auto-detected or enter manually"
-                className="w-full px-4 py-2.5 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                className="w-full px-4 py-2.5 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 [color-scheme:dark]"
               />
               {(distalFilename || proximalFilename) && baseDate && (
                 <p className="text-xs text-green-600 mt-1.5 font-medium">
@@ -1438,18 +1438,20 @@ export default function App() {
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
                       >
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                         <XAxis
                           dataKey="time"
                           type="number"
                           domain={xDomain.auto ? ['dataMin', 'dataMax'] : [xDomain.min?.getTime(), xDomain.max?.getTime()]}
                           tickFormatter={(time) => new Date(time).toLocaleTimeString()}
                           scale="time"
+                          stroke="#9ca3af"
+                          tick={{ fill: '#d1d5db' }}
                         />
-                        <YAxis yAxisId="left" />
-                        <YAxis yAxisId="right" orientation="right" />
+                        <YAxis yAxisId="left" stroke="#9ca3af" tick={{ fill: '#d1d5db' }} />
+                        <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" tick={{ fill: '#d1d5db' }} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Legend />
+                        <Legend wrapperStyle={{ color: '#d1d5db' }} />
                         
                         {/* Zoom selection area */}
                         {refAreaLeft && refAreaRight && (
@@ -1581,7 +1583,10 @@ export default function App() {
                         <Brush 
                           dataKey="timeLabel" 
                           height={30} 
-                          stroke="#8884d8"
+                          stroke="#f97316"
+                          fill="#1f2937"
+                          tickFormatter={(value) => value}
+                          travellerWidth={10}
                           onChange={(brushArea) => {
                             if (brushArea && brushArea.startIndex !== undefined && brushArea.endIndex !== undefined) {
                               const startTime = chartData[brushArea.startIndex]?.time
@@ -1688,7 +1693,7 @@ export default function App() {
                         type="date"
                         value={eventForm.date}
                         onChange={(e) => handleEventFormChange('date', e.target.value)}
-                        className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-medium"
+                        className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-medium [color-scheme:dark]"
                       />
                     </div>
                     
@@ -1700,7 +1705,7 @@ export default function App() {
                         type="time"
                         value={eventForm.startTime}
                         onChange={(e) => handleEventFormChange('startTime', e.target.value)}
-                        className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-medium"
+                        className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-medium [color-scheme:dark]"
                       />
                     </div>
                     
@@ -1712,7 +1717,7 @@ export default function App() {
                         type="time"
                         value={eventForm.endTime}
                         onChange={(e) => handleEventFormChange('endTime', e.target.value)}
-                        className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-medium"
+                        className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-medium [color-scheme:dark]"
                       />
                     </div>
                     
