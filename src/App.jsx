@@ -1229,6 +1229,7 @@ export default function App() {
                   e.preventDefault()
                   const file = e.dataTransfer.files[0]
                   if (file && file.name.endsWith('.csv')) {
+                    setDistalFilename(file.name)
                     const reader = new FileReader()
                     reader.onload = (evt) => setDistalText(evt.target.result)
                     reader.readAsText(file)
@@ -1268,6 +1269,7 @@ export default function App() {
                   e.preventDefault()
                   const file = e.dataTransfer.files[0]
                   if (file && file.name.endsWith('.csv')) {
+                    setProximalFilename(file.name)
                     const reader = new FileReader()
                     reader.onload = (evt) => setProximalText(evt.target.result)
                     reader.readAsText(file)
@@ -1443,7 +1445,7 @@ export default function App() {
                           dataKey="time"
                           type="number"
                           domain={xDomain.auto ? ['dataMin', 'dataMax'] : [xDomain.min?.getTime(), xDomain.max?.getTime()]}
-                          tickFormatter={(time) => new Date(time).toLocaleTimeString()}
+                          tickFormatter={(time) => new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}
                           scale="time"
                           stroke="#9ca3af"
                           tick={{ fill: '#d1d5db' }}
@@ -1605,8 +1607,8 @@ export default function App() {
                     </ResponsiveContainer>
                   </div>
                 ) : (
-                  <div className="text-center py-12 text-gray-500">
-                    <p>No data loaded. Upload or paste CSV data and click "Parse & Merge".</p>
+                  <div className="text-center py-12 text-gray-300 bg-gray-800/50 rounded-xl border-2 border-gray-700">
+                    <p className="text-lg font-semibold">No data loaded. Upload or paste CSV data and click "Parse & Merge".</p>
                   </div>
                 )}
               </div>
@@ -1692,6 +1694,7 @@ export default function App() {
                       <input
                         type="date"
                         value={eventForm.date}
+                        placeholder={baseDate ? baseDate.split('T')[0] : ''}
                         onChange={(e) => handleEventFormChange('date', e.target.value)}
                         className="w-full px-4 py-3 bg-gray-900 border-2 border-gray-600 text-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-medium [color-scheme:dark]"
                       />
