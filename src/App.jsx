@@ -1085,16 +1085,13 @@ export default function App() {
         {/* Header */}
         <header className="mb-8 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 rounded-2xl shadow-2xl p-8 text-white border-b-4 border-orange-500">
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-4">
-              <img 
-                src="/larcz-logo.svg" 
-                alt="Larcz" 
-                className="h-12 text-gray-200"
-                style={{ filter: 'brightness(0) saturate(100%) invert(90%)' }}
-              />
-            </div>
+            <img 
+              src="/larcz-logo.svg" 
+              alt="Larcz" 
+              className="h-10"
+            />
             <div className="border-l-2 border-gray-600 pl-6">
-              <h1 className="text-3xl font-light tracking-wide" style={{ fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.02em' }}>
+              <h1 className="text-3xl font-light tracking-wide" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
                 Data Portal <span className="text-xl font-light opacity-75">V1.0 (beta)</span>
               </h1>
               <p className="text-gray-400 text-base mt-1 font-light">Multi-Sensor Data Visualization</p>
