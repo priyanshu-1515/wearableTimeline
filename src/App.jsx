@@ -1084,21 +1084,20 @@ export default function App() {
       <div className="max-w-[1800px] mx-auto">
         {/* Header */}
         <header className="mb-8 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 rounded-2xl shadow-2xl p-8 text-white border-b-4 border-orange-500">
-          <div className="flex items-center gap-4 mb-3">
-            <div className="bg-orange-500/20 backdrop-blur-sm p-3 rounded-xl border border-orange-500/30">
-              <svg className="w-10 h-10 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 3v18h18"/>
-                <path d="M7 16l4-8 4 8 3-12"/>
-                <circle cx="7" cy="16" r="1" fill="currentColor"/>
-                <circle cx="11" cy="8" r="1" fill="currentColor"/>
-                <circle cx="15" cy="16" r="1" fill="currentColor"/>
-              </svg>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
+              <img 
+                src="/larcz-logo.svg" 
+                alt="Larcz" 
+                className="h-12 text-gray-200"
+                style={{ filter: 'brightness(0) saturate(100%) invert(90%)' }}
+              />
             </div>
-            <div>
-              <h1 className="text-4xl font-bold tracking-tight">
-                Larcz Data Portal<span className="text-2xl font-normal opacity-90"> (beta) {VERSION}</span>
+            <div className="border-l-2 border-gray-600 pl-6">
+              <h1 className="text-3xl font-light tracking-wide" style={{ fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.02em' }}>
+                Data Portal <span className="text-xl font-light opacity-75">V1.0 (beta)</span>
               </h1>
-              <p className="text-gray-300 text-lg mt-1">Visualize and analyze physiological sensor data streams</p>
+              <p className="text-gray-400 text-base mt-1 font-light">Multi-Sensor Data Visualization</p>
             </div>
           </div>
         </header>
