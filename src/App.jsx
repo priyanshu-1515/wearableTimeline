@@ -1091,10 +1091,10 @@ export default function App() {
               className="h-10"
             />
             <div className="border-l-2 border-gray-600 pl-6">
-              <h1 className="text-3xl font-light tracking-wide" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
-                Data Portal <span className="text-xl font-light opacity-75">V1.0 (beta)</span>
+              <h1 className="text-[28px] font-normal tracking-wide" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
+                Data Portal <span className="text-[19px] font-normal opacity-75">V1.0 (beta)</span>
               </h1>
-              <p className="text-gray-400 text-base mt-1 font-light">Multi-Sensor Data Visualization</p>
+              <p className="text-gray-400 text-[14px] mt-1 font-normal">Multi-Sensor Data Visualization</p>
             </div>
           </div>
         </header>
@@ -1104,7 +1104,7 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             {/* Base Date */}
             <div>
-              <label className="block text-sm font-semibold text-gray-200 mb-2">
+              <label className="block text-[14px] font-medium text-gray-200 mb-2">
                 <Calendar className="inline w-4 h-4 mr-1 text-orange-400 stroke-2" />
                 Base Date
               </label>
@@ -1127,20 +1127,20 @@ export default function App() {
               <button
                 onClick={analyzeFiles}
                 disabled={isAnalyzing || (!distalText && !proximalText)}
-                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-5 py-2.5 rounded-xl text-[16px] font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 {isAnalyzing ? '⏳ Analyzing...' : '🔍 Analyze Files'}
               </button>
               <button
                 onClick={handleParseAndMerge}
                 disabled={!analysisComplete || isAnalyzing}
-                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-5 py-2.5 rounded-xl text-[16px] font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 📊 Parse & Merge
               </button>
               <button
                 onClick={loadSampleData}
-                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-5 py-2.5 rounded-xl text-[16px] font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 🎯 Load Samples
               </button>
