@@ -1096,7 +1096,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-4xl font-bold tracking-tight">
-                Wearable Overlay Timeline <span className="text-2xl font-normal opacity-90">{VERSION}</span>
+                Larcz Data Portal<span className="text-2xl font-normal opacity-90"> (beta) {VERSION}</span>
               </h1>
               <p className="text-gray-300 text-lg mt-1">Visualize and analyze physiological sensor data streams</p>
             </div>
@@ -1208,7 +1208,7 @@ export default function App() {
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-5 border-2 border-orange-600/50 shadow-md">
               <label className="block text-base font-bold text-orange-100 mb-3 flex items-center gap-2">
                 <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-                Distal Sensor CSV
+                Distal Sensor CSV (Drag & Drop or Click to Upload)
               </label>
               <div className="mb-3">
                 <label className="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl cursor-pointer transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
@@ -1225,7 +1225,17 @@ export default function App() {
               <textarea
                 value={distalText}
                 onChange={(e) => setDistalText(e.target.value)}
-                placeholder="Paste Distal CSV here or upload a file..."
+                onDrop={(e) => {
+                  e.preventDefault()
+                  const file = e.dataTransfer.files[0]
+                  if (file && file.name.endsWith('.csv')) {
+                    const reader = new FileReader()
+                    reader.onload = (evt) => setDistalText(evt.target.result)
+                    reader.readAsText(file)
+                  }
+                }}
+                onDragOver={(e) => e.preventDefault()}
+                placeholder="Paste Distal CSV here, drag & drop a file, or upload..."
                 className="w-full h-32 px-4 py-3 bg-gray-900 border-2 border-orange-600/30 text-gray-100 rounded-xl font-mono text-xs focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 placeholder-gray-500"
               />
               {errors.distal && (
@@ -1237,7 +1247,7 @@ export default function App() {
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-5 border-2 border-blue-600/50 shadow-md">
               <label className="block text-base font-bold text-blue-100 mb-3 flex items-center gap-2">
                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                Proximal Sensor CSV
+                Proximal Sensor CSV (Drag & Drop or Click to Upload)
               </label>
               <div className="mb-3">
                 <label className="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl cursor-pointer transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
@@ -1254,7 +1264,17 @@ export default function App() {
               <textarea
                 value={proximalText}
                 onChange={(e) => setProximalText(e.target.value)}
-                placeholder="Paste Proximal CSV here or upload a file..."
+                onDrop={(e) => {
+                  e.preventDefault()
+                  const file = e.dataTransfer.files[0]
+                  if (file && file.name.endsWith('.csv')) {
+                    const reader = new FileReader()
+                    reader.onload = (evt) => setProximalText(evt.target.result)
+                    reader.readAsText(file)
+                  }
+                }}
+                onDragOver={(e) => e.preventDefault()}
+                placeholder="Paste Proximal CSV here, drag & drop a file, or upload..."
                 className="w-full h-32 px-4 py-3 bg-gray-900 border-2 border-blue-600/30 text-gray-100 rounded-xl font-mono text-xs focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-gray-500"
               />
               {errors.proximal && (
@@ -1802,7 +1822,7 @@ export default function App() {
                   </h3>
                   <div className="mb-5">
                     <label className="block text-sm font-bold text-gray-200 mb-3">
-                      Events CSV File
+                      Events CSV File (Drag & Drop or Click to Upload)
                     </label>
                     <div className="mb-3 flex gap-3">
                       <label className="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl cursor-pointer transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
@@ -1844,7 +1864,17 @@ export default function App() {
                     <textarea
                       value={eventsText}
                       onChange={(e) => setEventsText(e.target.value)}
-                      placeholder="Paste Events CSV here or upload a file..."
+                      onDrop={(e) => {
+                        e.preventDefault()
+                        const file = e.dataTransfer.files[0]
+                        if (file && file.name.endsWith('.csv')) {
+                          const reader = new FileReader()
+                          reader.onload = (evt) => setEventsText(evt.target.result)
+                          reader.readAsText(file)
+                        }
+                      }}
+                      onDragOver={(e) => e.preventDefault()}
+                      placeholder="Paste Events CSV here, drag & drop a file, or upload..."
                       className="w-full h-64 px-4 py-3 bg-gray-900 border-2 border-blue-600/30 text-gray-100 rounded-xl font-mono text-xs focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-gray-500"
                     />
                   </div>
@@ -1863,13 +1893,27 @@ export default function App() {
               <div className="prose prose-sm max-w-none prose-invert">
                 <h2 className="text-gray-100">Quick Start Guide</h2>
                 
-                <h3 className="text-gray-200">1. Upload Your Data</h3>
+                <h3 className="text-gray-200">1. Upload Your CSV Files</h3>
                 <p className="text-gray-300">
-                  Upload Distal and Proximal sensor CSV files, or try the sample data first. 
-                  The app auto-detects date formats (ISO or HH:MM:SS).
+                  Upload or drag and drop Distal and Proximal sensor CSV files, or try the sample data first.
                 </p>
                 
-                <h3 className="text-gray-200">2. Required CSV Columns</h3>
+                <h3 className="text-gray-200">2. Remove the First Two Lines</h3>
+                <p className="text-gray-300">
+                  After uploading, remove the first two lines from the CSV files text box.
+                </p>
+                
+                <h3 className="text-gray-200">3. Click "Analyze Files"</h3>
+                <p className="text-gray-300">
+                  Click the "Analyze Files" button and confirm the base date is correct.
+                </p>
+                
+                <h3 className="text-gray-200">4. Click "Parse & Merge"</h3>
+                <p className="text-gray-300">
+                  Click "Parse & Merge" to process and visualize your data.
+                </p>
+                
+                <h3 className="text-gray-200">5. Required CSV Columns</h3>
                 <ul className="text-gray-300">
                   <li><code className="text-orange-400 bg-gray-800 px-1.5 py-0.5 rounded">Time</code> - Timestamps (ISO or HH:MM:SS format)</li>
                   <li><code className="text-orange-400 bg-gray-800 px-1.5 py-0.5 rounded">SkinT [degC]</code>, <code className="text-orange-400 bg-gray-800 px-1.5 py-0.5 rounded">AmbT [degC]</code> - Temperatures</li>
